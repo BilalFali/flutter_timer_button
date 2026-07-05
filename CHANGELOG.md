@@ -1,3 +1,10 @@
+## 0.1.1
+
+- Fix README demo image so it renders on pub.dev (was pointing at a GitHub
+  HTML viewer page instead of the raw file).
+- Keep demo assets (GIF/image) out of the published package archive via
+  `.pubignore`.
+
 ## 0.1.0
 
 Initial release.
