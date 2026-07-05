@@ -4,8 +4,8 @@ description: >-
   fill indicator. OTP resend, countdowns, sync/upload/download progress,
   rate-limited actions.
 version: 0.1.0
-homepage: https://github.com/bidev/flutter_timer_button
-repository: https://github.com/bidev/flutter_timer_button
+homepage: https://github.com/BilalFali/flutter_timer_button
+repository: https://github.com/BilalFali/flutter_timer_button
 topics:
   - button
   - timer

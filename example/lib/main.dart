@@ -9,7 +9,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TimerButton',
+      title: 'FlutterTimerButton',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
       home: const ShowcasePage(),
     );
@@ -30,6 +31,26 @@ class ShowcasePage extends StatefulWidget {
 class _ShowcasePageState extends State<ShowcasePage> {
   final _syncController = TimerButtonController();
   final _downloadingController = TimerButtonController();
+  final _continuingController = TimerButtonController()..setProgress(0.29);
+  final _blue42Controller = TimerButtonController()..setProgress(0.42);
+  final _outlined38Controller = TimerButtonController()..setProgress(0.38);
+  final _teal34Controller = TimerButtonController()..setProgress(0.34);
+
+  final _tealCountdownController = TimerButtonController(
+    duration: const Duration(seconds: 4),
+  );
+  final _blueCountdownController = TimerButtonController(
+    duration: const Duration(seconds: 3),
+  );
+  final _darkCountdownController = TimerButtonController(
+    duration: const Duration(seconds: 2),
+  );
+  final _otpController = TimerButtonController(
+    duration: const Duration(seconds: 5),
+  );
+  final _downloadController = TimerButtonController(
+    duration: const Duration(seconds: 6),
+  );
 
   Future<void> _fakeProgress(TimerButtonController controller) async {
     controller.setProgress(0);
@@ -46,6 +67,15 @@ class _ShowcasePageState extends State<ShowcasePage> {
   void dispose() {
     _syncController.dispose();
     _downloadingController.dispose();
+    _continuingController.dispose();
+    _blue42Controller.dispose();
+    _outlined38Controller.dispose();
+    _teal34Controller.dispose();
+    _tealCountdownController.dispose();
+    _blueCountdownController.dispose();
+    _darkCountdownController.dispose();
+    _otpController.dispose();
+    _downloadController.dispose();
     super.dispose();
   }
 
@@ -73,15 +103,18 @@ class _ShowcasePageState extends State<ShowcasePage> {
             // Blue progress button "Continuing 29%"
             TimerButton(
               mode: TimerButtonMode.progress,
-              controller: TimerButtonController()..setProgress(0.29),
+              controller: _continuingController,
               style: TimerButtonStyle.filled(color: _blue),
-              child: const Text('Continuing 29%'),
+              labelBuilder: (context, remaining, progress, isRunning) {
+                return Text('Continuing ${(progress * 100).round()}%');
+              },
             ),
             const SizedBox(height: 12),
 
             // Teal countdown button "4s left"
             TimerButton.countdown(
               duration: const Duration(seconds: 4),
+              controller: _tealCountdownController,
               autoStart: true,
               style: TimerButtonStyle.filled(color: _teal),
             ),
@@ -124,18 +157,22 @@ class _ShowcasePageState extends State<ShowcasePage> {
                 Expanded(
                   child: TimerButton(
                     mode: TimerButtonMode.progress,
-                    controller: TimerButtonController()..setProgress(0.42),
+                    controller: _blue42Controller,
                     style: TimerButtonStyle.filled(color: _blue),
-                    child: const Text('42%'),
+                    labelBuilder: (context, remaining, progress, isRunning) {
+                      return Text(defaultProgressLabel(progress));
+                    },
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: TimerButton(
                     mode: TimerButtonMode.progress,
-                    controller: TimerButtonController()..setProgress(0.38),
+                    controller: _outlined38Controller,
                     style: TimerButtonStyle.outlined(color: _blue),
-                    child: const Text('38%'),
+                    labelBuilder: (context, remaining, progress, isRunning) {
+                      return Text(defaultProgressLabel(progress));
+                    },
                   ),
                 ),
               ],
@@ -145,11 +182,13 @@ class _ShowcasePageState extends State<ShowcasePage> {
             // Small teal progress button "34%"
             TimerButton(
               mode: TimerButtonMode.progress,
-              controller: TimerButtonController()..setProgress(0.34),
+              controller: _teal34Controller,
               style: TimerButtonStyle.filled(
                 color: _teal,
               ).copyWith(height: 44),
-              child: const Text('34%'),
+              labelBuilder: (context, remaining, progress, isRunning) {
+                return Text(defaultProgressLabel(progress));
+              },
             ),
 
             const SizedBox(height: 32),
@@ -162,6 +201,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
                 Expanded(
                   child: TimerButton.countdown(
                     duration: const Duration(seconds: 3),
+                    controller: _blueCountdownController,
                     autoStart: true,
                     style: TimerButtonStyle.filled(color: _blue),
                   ),
@@ -170,6 +210,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
                 Expanded(
                   child: TimerButton.countdown(
                     duration: const Duration(seconds: 2),
+                    controller: _darkCountdownController,
                     autoStart: true,
                     style: TimerButtonStyle.dark(),
                   ),
@@ -192,6 +233,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
             // Teal countdown "Resend in 5s" with idleChild "Send code"
             TimerButton.countdown(
               duration: const Duration(seconds: 5),
+              controller: _otpController,
               autoStart: false,
               style: TimerButtonStyle.filled(color: _teal),
               idleChild: const Text('Send code'),
@@ -205,6 +247,7 @@ class _ShowcasePageState extends State<ShowcasePage> {
             // Dark progress button "Download 42%" with download icon, autoStart over 6s
             TimerButton.progress(
               duration: const Duration(seconds: 6),
+              controller: _downloadController,
               autoStart: true,
               style: TimerButtonStyle.dark(),
               leading: const Icon(Icons.download, size: 18),
