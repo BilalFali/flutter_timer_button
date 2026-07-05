@@ -4,7 +4,7 @@ A highly customizable timed & progress button for Flutter with an animated
 fill indicator. Built for OTP resend cooldowns, rate-limited actions, and
 sync/upload/download progress.
 
-![demo placeholder](https://via.placeholder.com/600x120?text=flutter_timer_button+demo.gif)
+![demo placeholder]([https://via.placeholder.com/600x120?text=flutter_timer_button+demo.gif](https://github.com/BilalFali/flutter_timer_button/blob/main/ezgif-10542e8774d88eeb.gif))
 
 ## Why
 
