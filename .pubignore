@@ -1,0 +1,19 @@
+# Standard build/tooling artifacts (kept in sync with .gitignore since
+# .pubignore replaces rather than extends it during `pub publish`).
+build/
+.dart_tool/
+.idea/
+.flutter-plugins-dependencies
+*.iml
+*.ipr
+*.iws
+pubspec.lock
+
+# Demo assets referenced from README via their GitHub URL — no need to
+# ship them inside the published package.
+*.gif
+*.jfif
+*.jpg
+*.jpeg
+*.png
+!example/android/**/*.png
